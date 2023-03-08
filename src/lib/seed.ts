@@ -1,4 +1,5 @@
-import { prisma } from "./prisma";
+import { prisma } from "../lib/prisma";
+import { logger } from "./logger";
 
 async function createCustomer() {
   return await prisma.customer.create({
@@ -23,10 +24,14 @@ async function createCoffeeOrder(id: number) {
 }
 
 async function seed() {
+  const user = await prisma.customer.findFirst();
+  if (user) {
+    logger.error("Seed data already exists");
+  }
+
   const customer = await createCustomer();
   await createCoffeeOrder(customer.id);
-
-  console.log("Seed data created!");
+  logger.log("Seed data created!");
 }
 
 seed()
