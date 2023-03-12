@@ -1,6 +1,6 @@
 # ExpressoCrud
 
-A Coffee API.
+Welcome to ExpressoCrud! A simple local Coffee API to demonstrate CRUD operations.
 
 ## ENDPOINTS:
 
@@ -21,6 +21,14 @@ A Coffee API.
 * Prisma
 * Sqlite
 * Vite
+
+## Features
+
+* Authentication with JWT.
+* Local Logging
+* Testing.
+* Local DB with Prisma.
+* Zod for validation.
 
 ## TODO
 
