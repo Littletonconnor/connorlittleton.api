@@ -4,27 +4,93 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/style.css" type="text/css" />
     <title>ExpressoCRUD</title>
+    <style>
+      td,
+      th {
+        border: 1px solid rgb(190, 190, 190);
+        padding: 10px;
+      }
+
+      td {
+        text-align: center;
+      }
+
+      tr:nth-child(even) {
+        background-color: #eee;
+      }
+
+      th[scope='col'] {
+        background-color: #696969;
+        color: #fff;
+      }
+
+      th[scope='row'] {
+        background-color: #d7d9f2;
+      }
+
+      caption {
+        padding: 10px;
+        caption-side: bottom;
+      }
+
+      table {
+        border-collapse: collapse;
+        border: 2px solid rgb(200, 200, 200);
+        letter-spacing: 1px;
+        font-family: sans-serif;
+        font-size: 0.8rem;
+      }
+    </style>
   </head>
-  <body>
-    <div class="container">
-      <h1>ExpressoCRUD</h1>
-      <table>
-        <thead>
-          <tr>
-            <td>Route</td>
-            <td>METHOD</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>/coffee</td>
-            <td>Get a list of all coffees</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p></p>
+  <body class="w-full flex flex-col py-20 justify-center">
+    <h1 class="mx-auto text-5xl mb-10">ExpressoCRUD</h1>
+    <table class="w-fit mx-auto space-y-4">
+      <thead>
+        <tr>
+          <td>Route</td>
+          <td>METHOD</td>
+          <td>Description</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="space-x-4">
+          <td>/signup</td>
+          <td>POST</td>
+          <td>Create a customer with name, email, and password</td>
+        </tr>
+        <tr class="space-x-4">
+          <td>/signin</td>
+          <td>POST</td>
+          <td>Sign in with with a valid email and password</td>
+        </tr>
+        <tr class="space-x-4">
+          <td>/api/coffee</td>
+          <td>GET</td>
+          <td>Get a list of all coffees</td>
+        </tr>
+        <tr>
+          <td>/api/coffee/:id</td>
+          <td>GET</td>
+          <td>Get details for a specific coffee order</td>
+        </tr>
+        <tr>
+          <td>/api/coffee</td>
+          <td>POST</td>
+          <td>Create a new coffee order</td>
+        </tr>
+        <tr>
+          <td>/api/coffee/:id</td>
+          <td>PUT</td>
+          <td>Update an existing coffee order</td>
+        </tr>
+        <tr>
+          <td>/api/coffee/:id</td>
+          <td>DELETE</td>
+          <td>Delete a coffee order</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
+  <script src="https://cdn.tailwindcss.com"></script>
 </html>

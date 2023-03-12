@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "lib": ["esnext"],
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
   "include": ["src"]
 }

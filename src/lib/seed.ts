@@ -1,10 +1,14 @@
+import { hashPassword } from "../auth";
 import { prisma } from "../lib/prisma";
 import { logger } from "./logger";
 
 async function createCustomer() {
+  const password = await hashPassword("password");
+
   return await prisma.customer.create({
     data: {
       name: "John Doe",
+      password,
       email: "johndoe@example.com",
     },
   });
