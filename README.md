@@ -12,9 +12,10 @@ Welcome to ExpressoCrud! A simple local Coffee API to demonstrate CRUD operation
 
 ## Setup
 
-1. First run `git clone`.
-2. Run the setup script which will seed the local sqlite DB.
-3. Run `npm run dev`
+1. First run `pn install`.
+2. Run the setup script `pn seed` which will seed the local sqlite DB (You can also reset the db with `pn reset` if you wish).
+3. See the local database with `pnpx prisma studio`. This will open a web browser with the local database on http://localhost:5555.
+4. To run the server, run `pn dev` which will start the server on http://localhost:5000.
 
 ## Libraries
 
