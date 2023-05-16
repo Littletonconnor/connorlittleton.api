@@ -33,11 +33,9 @@ Welcome to ExpressoCrud! A simple local Coffee API to demonstrate CRUD operation
 
 ## TODO
 
-* Add tests.
-* Get github actions working.
-* Maybe: Setup local logging service.
-* Make seed test a lot better by using faker.
-* Create JWT authentication for both client and server.
-  * For server, we'll return the JWT to the user and they'll need to send it with every request.
-  * For client, we'll store the JWT in local storage and send it with every request.
-* Add Zod for validation (we're using sqlite so we can't really use any useful enums AFAIK).
+- [ ] Setup Deploy pipeline with aws and terraform.
+- [ ] Docs site with nextra, use subdomain.
+- [ ] Add a much better seed file.
+- [ ] Setup Real database with rds or something.
+- [ ] Setup real time logging.
+- [ ] Add tests
