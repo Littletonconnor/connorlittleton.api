@@ -1,12 +1,11 @@
-import { Router } from "express";
-import { getCoffee, getCoffees, postCoffee, stub } from "./coffee";
+import { Router } from 'express';
+import { getPost, getPosts } from './posts';
+
+// TODO: add support for the other endpoints.
 
 const router = Router();
 
-router.get("/coffee", getCoffees);
-router.get("/coffee/:id", getCoffee);
-router.post("/coffee", postCoffee);
-router.put("/coffee/:id", stub);
-router.delete("/coffee/:id", stub);
+router.get('/posts', getPosts);
+router.get('/posts/:id', getPost);
 
 export { router };

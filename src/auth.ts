@@ -16,7 +16,7 @@ async function comparePassword(password: string, hash: string) {
 }
 
 function createJwt(user: Customer) {
-  return jwt.sign({ id: user.id, name: user.name }, process.env.JWT_SECRET);
+  return jwt.sign({ id: user.id, name: user.name }, process.env.JWT_TOKEN);
 }
 
 function protect(request: Request, response: Response, next: NextFunction) {
@@ -30,7 +30,7 @@ function protect(request: Request, response: Response, next: NextFunction) {
   const [, token] = bearer.split(' ');
 
   try {
-    const user = jwt.verify(token, process.env.JWT_SECRET) as Customer;
+    const user = jwt.verify(token, process.env.JWT_TOKEN) as Customer;
     // @ts-ignore
     request.user = user;
     next();

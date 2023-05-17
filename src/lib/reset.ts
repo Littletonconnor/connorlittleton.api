@@ -1,9 +1,9 @@
-import { prisma } from "../lib/prisma";
+import { prisma } from '../lib/prisma';
 
 async function reset() {
   await prisma.coffeeOrder.deleteMany();
   await prisma.customer.deleteMany();
-  console.log("Database reset!");
+  console.log('💾 Database reset!');
 }
 
 reset()

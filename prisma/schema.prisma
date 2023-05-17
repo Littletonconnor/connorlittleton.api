@@ -7,26 +7,59 @@ datasource db {
   url      = "file:dev.db"
 }
 
-model Customer {
-  id           Int           @id @default(autoincrement())
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  password     String
-  name         String
-  email        String        @unique
-  phone        String?
-  coffeeOrders CoffeeOrder[]
+model Post {
+  id        Int       @id @default(autoincrement())
+  title     String
+  body      String
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  comments  Comment[]
 }
 
-model CoffeeOrder {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  customerId Int
-  customer   Customer @relation(fields: [customerId], references: [id])
-  coffeeType String
-  size       String
-  milkType   String?
-  sugar      Boolean
-  notes      String?
+model Comment {
+  id        Int    @id @default(autoincrement())
+  name      String
+  email     String
+  body      String
+  postId    Int
+  post      Post?   @relation(fields: [postId], references: [id])
+}
+
+model Album {
+  id        Int     @id @default(autoincrement())
+  title     String
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  photos    Photo[]
+}
+
+model Photo {
+  id        Int    @id @default(autoincrement())
+  title     String
+  url       String
+  thumbnail String
+  albumId   Int?
+  album     Album?  @relation(fields: [albumId], references: [id], onDelete: Cascade)
+}
+
+model Todo {
+  id        Int    @id @default(autoincrement())
+  title     String
+  completed Boolean
+  userId    Int
+  user      User   @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  name     String
+  email    String    @unique
+  address  String // store as JSON.stringify in app.
+  phone    String
+  website  String
+  company  String // store as JSON.stringify in app.
+  posts    Post[]
+  albums   Album[]
+  todos    Todo[]
+  password String
 }
