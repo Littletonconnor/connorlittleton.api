@@ -10,15 +10,14 @@ import {
   createUser,
 } from './seed-utils';
 
-// FIXME: Sqlite doesn't work well with promise.all
-const TEMP = 1;
+// There are some ugly for loops in this file instead of Promise.all() because sqlite doesn't seem to support concurrent writes.
 
-const POSTS = TEMP;
-const COMMENTS = TEMP;
-const ALBUMS = TEMP;
-const PHOTOS = TEMP;
-const TODOS = TEMP;
-const USERS = TEMP;
+const POSTS = 100;
+const USERS = 10;
+const COMMENTS = 500;
+const ALBUMS = 100;
+const PHOTOS = 5000;
+const TODOS = 200;
 
 async function seed() {
   logger.log('🌱 Seeding Database...');
@@ -38,35 +37,37 @@ async function seed() {
 
 async function createUsers() {
   console.time('👤 Created users');
-  const users = await Promise.all(
-    Array.from({ length: USERS }, async (_, index) => {
-      const userData = createUser();
-      const postData = createPost();
-      const albumData = createAlbum();
-      const todoData = createTodo();
 
-      return prisma.user.create({
-        data: {
-          ...userData,
-          posts: {
-            create: {
-              ...postData,
-            },
-          },
-          albums: {
-            create: {
-              ...albumData,
-            },
-          },
-          todos: {
-            create: {
-              ...todoData,
-            },
+  let users = [];
+  for (let index = 0; index < USERS; index++) {
+    const userData = createUser();
+    const postData = createPost();
+    const albumData = createAlbum();
+    const todoData = createTodo();
+
+    const user = await prisma.user.create({
+      data: {
+        ...userData,
+        posts: {
+          create: {
+            ...postData,
           },
         },
-      });
-    })
-  );
+        albums: {
+          create: {
+            ...albumData,
+          },
+        },
+        todos: {
+          create: {
+            ...todoData,
+          },
+        },
+      },
+    });
+
+    users.push(user);
+  }
 
   console.timeEnd('👤 Created users');
   return users;
@@ -74,30 +75,32 @@ async function createUsers() {
 
 async function createPosts(users: User[]) {
   console.time('📝 Created posts');
-  const posts = await Promise.all(
-    Array.from({ length: POSTS }, async () => {
-      const postData = createPost();
-      const commentData = createComment();
-      const randomUserId =
-        users[Math.floor(Math.random() * users.length - 1) + 1].id;
 
-      return prisma.post.create({
-        data: {
-          ...postData,
-          user: {
-            connect: {
-              id: randomUserId,
-            },
-          },
-          comments: {
-            create: {
-              ...commentData,
-            },
+  let posts = [];
+  for (let i = 0; i < POSTS - USERS; i++) {
+    const postData = createPost();
+    const commentData = createComment();
+    const randomUserId =
+      users[Math.floor(Math.random() * users.length - 1) + 1].id;
+
+    const post = await prisma.post.create({
+      data: {
+        ...postData,
+        user: {
+          connect: {
+            id: randomUserId,
           },
         },
-      });
-    })
-  );
+        comments: {
+          create: {
+            ...commentData,
+          },
+        },
+      },
+    });
+
+    posts.push(post);
+  }
 
   console.timeEnd('📝 Created posts');
   return posts;
@@ -106,24 +109,25 @@ async function createPosts(users: User[]) {
 async function createComments(posts: Post[]) {
   console.time('💬 Created comments');
 
-  const comments = await Promise.all(
-    Array.from({ length: COMMENTS }, async () => {
-      const commentData = createComment();
-      const randomPostId =
-        posts[Math.floor(Math.random() * posts.length - 1) + 1].id;
+  let comments = [];
+  for (let i = 0; i < COMMENTS - USERS - PHOTOS; i++) {
+    const commentData = createComment();
+    const randomPostId =
+      posts[Math.floor(Math.random() * posts.length - 1) + 1].id;
 
-      return prisma.comment.create({
-        data: {
-          ...commentData,
-          post: {
-            connect: {
-              id: randomPostId,
-            },
+    const comment = await prisma.comment.create({
+      data: {
+        ...commentData,
+        post: {
+          connect: {
+            id: randomPostId,
           },
         },
-      });
-    })
-  );
+      },
+    });
+
+    comments.push(comment);
+  }
 
   console.timeEnd('💬 Created comments');
   return comments;
@@ -132,31 +136,32 @@ async function createComments(posts: Post[]) {
 async function createAlbums(users: User[], photos: Photo[]) {
   console.time('📸 Created albums');
 
-  const albums = await Promise.all(
-    Array.from({ length: ALBUMS }, async () => {
-      const albumData = createAlbum();
-      const randomUserId =
-        users[Math.floor(Math.random() * users.length - 1) + 1].id;
-      const randomPhotoId =
-        photos[Math.floor(Math.random() * photos.length - 1) + 1].id;
+  let albums = [];
+  for (let i = 0; i < ALBUMS - USERS; i++) {
+    const albumData = createAlbum();
+    const randomUserId =
+      users[Math.floor(Math.random() * users.length - 1) + 1].id;
+    const randomPhotoId =
+      photos[Math.floor(Math.random() * photos.length - 1) + 1].id;
 
-      return prisma.album.create({
-        data: {
-          ...albumData,
-          user: {
-            connect: {
-              id: randomUserId,
-            },
-          },
-          photos: {
-            connect: {
-              id: randomPhotoId,
-            },
+    const album = await prisma.album.create({
+      data: {
+        ...albumData,
+        user: {
+          connect: {
+            id: randomUserId,
           },
         },
-      });
-    })
-  );
+        photos: {
+          connect: {
+            id: randomPhotoId,
+          },
+        },
+      },
+    });
+
+    albums.push(album);
+  }
 
   console.timeEnd('📸 Created albums');
   return albums;
@@ -165,17 +170,18 @@ async function createAlbums(users: User[], photos: Photo[]) {
 async function createPhotos() {
   console.time('🖼 Created photos');
 
-  const photos = Promise.all(
-    Array.from({ length: PHOTOS }, async () => {
-      const photoData = createPhoto();
+  let photos = [];
+  for (let i = 0; i < PHOTOS; i++) {
+    const photoData = createPhoto();
 
-      return prisma.photo.create({
-        data: {
-          ...photoData,
-        },
-      });
-    })
-  );
+    const photo = await prisma.photo.create({
+      data: {
+        ...photoData,
+      },
+    });
+
+    photos.push(photo);
+  }
 
   console.timeEnd('🖼 Created photos');
   return photos;
@@ -184,24 +190,25 @@ async function createPhotos() {
 async function createTodos(users: User[]) {
   console.time('✅ Created todos');
 
-  const todos = await Promise.all(
-    Array.from({ length: TODOS - USERS }, async () => {
-      const todoData = createTodo();
-      const randomUserId =
-        users[Math.floor(Math.random() * users.length - 1) + 1];
+  let todos = [];
+  for (let i = 0; i < TODOS - USERS; i++) {
+    const todoData = createTodo();
+    const randomUserId =
+      users[Math.floor(Math.random() * users.length - 1) + 1];
 
-      return prisma.todo.create({
-        data: {
-          ...todoData,
-          user: {
-            connect: {
-              id: randomUserId.id,
-            },
+    const todo = await prisma.todo.create({
+      data: {
+        ...todoData,
+        user: {
+          connect: {
+            id: randomUserId.id,
           },
         },
-      });
-    })
-  );
+      },
+    });
+
+    todos.push(todo);
+  }
 
   console.timeEnd('✅ Created todos');
   return todos;
