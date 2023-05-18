@@ -1,15 +1,14 @@
 import { Request, Response } from 'express';
 import { prisma } from './lib/prisma';
 
-async function getPosts(request: Request, response: Response) {
-  const data = await prisma.post.findMany();
+async function getPhotos(request: Request, response: Response) {
+  const data = await prisma.photo.findMany();
 
   return response.json({ data });
 }
 
-async function getPost(request: Request, response: Response) {
-  console.log('req', request.params);
-  const data = await prisma.post.findFirst({
+async function getPhoto(request: Request, response: Response) {
+  const data = await prisma.photo.findFirst({
     where: {
       id: Number(request.params.id),
     },
@@ -22,4 +21,4 @@ async function getPost(request: Request, response: Response) {
   return response.json({ data });
 }
 
-export { getPost, getPosts };
+export { getPhotos, getPhoto };
