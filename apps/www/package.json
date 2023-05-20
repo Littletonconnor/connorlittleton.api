@@ -1,0 +1,24 @@
+{
+  "name": "www",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "format:write": "prettier --write . --cache --ignore-path ../../.prettierignore",
+    "format:check": "prettier --check . --cache --ignore-path ../../.prettierignore"
+  },
+  "dependencies": {
+    "next": "^13.4.3",
+    "nextra": "^2.5.2",
+    "nextra-theme-docs": "^2.5.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.2.1",
+    "typescript": "5.0.4"
+  }
+}
