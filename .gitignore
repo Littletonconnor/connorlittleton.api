@@ -24,4 +24,10 @@ dist-ssr
 *.sln
 *.sw?
 
+# Nextjs
 .next
+
+# Terraform
+.terraform*
+*.tfstate*
+staging_api_key_pair.*
