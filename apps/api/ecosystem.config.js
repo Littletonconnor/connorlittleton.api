@@ -6,4 +6,4 @@ const config = {
   script: 'dist/index.js',
 }
 
-export default config
+module.exports = config
