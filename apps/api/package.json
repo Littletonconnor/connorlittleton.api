@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "nodemon ./src/server.ts",
+    "start": "ts-node ./src/server.ts",
     "typecheck": "tsc --noEmit",
     "format:write": "prettier --write . --cache --ignore-path ../../.prettierignore",
     "format:check": "prettier --check . --cache --ignore-path ../../.prettierignore",
