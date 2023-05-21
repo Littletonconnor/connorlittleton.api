@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4000",
     "typecheck": "tsc --noEmit",
     "format:write": "prettier --write . --cache --ignore-path ../../.prettierignore",
     "format:check": "prettier --check . --cache --ignore-path ../../.prettierignore"
