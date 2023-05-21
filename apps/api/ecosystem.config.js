@@ -3,7 +3,8 @@ const config = {
   interpreter: '/home/ubuntu/.nvm/versions/node/v18.16.0/bin/ts-node',
   exec_mode: 'cluster',
   instances: 'max',
-  script: 'dist/index.js',
+  script: 'npm',
+  args: 'start',
 }
 
 module.exports = config
