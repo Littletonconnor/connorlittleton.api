@@ -17,7 +17,7 @@ resource "aws_instance" "example" {
   ami                    = "ami-0fb653ca2d3203ac1"
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.staging_api_key_pair.key_name
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id, aws_security_group.allow_express_server.id, aws_security_group.allow_nextra.id, aws_security_group.allow_outbound.id]
+  vpc_security_group_ids = [aws_security_group.inbound_requests.id]
 
   tags = {
     Name = "api-staging-server"
@@ -26,43 +26,21 @@ resource "aws_instance" "example" {
 
 resource "aws_key_pair" "staging_api_key_pair" {
   key_name   = "staging_api_key_pair"
-  public_key = file("./staging_api_key_pair.pub")
+  public_key = file("~/.ssh/staging_api_key_pair.pub")
 }
 
-resource "aws_security_group" "allow_ssh" {
+resource "aws_security_group" "inbound_requests" {
+  name = "Allow inbound requests to api ec2 instance"
 
-  name = "Allo ssh access to api ec2 instance"
+  dynamic "ingress" {
+    for_each = var.ingress_rules
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-resource "aws_security_group" "allow_express_server" {
-
-  name = "Allow express server access to api ec2 instance"
-
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-
-resource "aws_security_group" "allow_nextra" {
-
-  name = "Allow nextra access to api ec2 instance"
-
-  ingress {
-    from_port   = 4000
-    to_port     = 4000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 }
 
