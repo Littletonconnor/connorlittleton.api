@@ -3,5 +3,5 @@
 cd apps/api
 pm2 start
 
-cd ../web
+cd ../www
 pm2 start
