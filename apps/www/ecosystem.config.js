@@ -2,7 +2,7 @@ const config = {
   name: 'docs.connorlittleton',
   exec_mode: 'cluster',
   instances: 'max',
-  script: 'node_modules/next/dist/bin/next',
+  script: 'npm',
   args: 'start',
 }
 
