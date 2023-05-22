@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import z from 'zod'
 
 import { prisma } from './lib/prisma'
+import { generateRandomNumber } from './lib/utils'
 
 // TODO: add better error handling.
 // TODO: check for duplicates when creating/updating.
@@ -50,7 +51,7 @@ async function createComment(request: Request, response: Response) {
 
     response.status(201).json({
       data: {
-        id: 1,
+        id: generateRandomNumber(),
         body,
         name,
         email,
@@ -91,7 +92,7 @@ async function updateComment(request: Request, response: Response) {
 
     response.status(201).json({
       data: {
-        id: 1,
+        id: generateRandomNumber(),
         body,
         name,
         email,
