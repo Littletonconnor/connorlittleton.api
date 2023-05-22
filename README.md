@@ -3,8 +3,8 @@
 ## Overview
 Welcome to connorlittleton.api! A simple jsonplaceholder alternative using my own API, a custom docs site, CICD pipeline, etc.
 
-- Api: [connorlittleton.api](https://docs.connorlittleton.api/)
-- Docs: [docs.connorlittleton.api](https://connorlittleton.api/)
+- Api: [api.connorlittleton.com](http://api.connorlittleton.com/)
+- Docs: [docs.connorlittleton.com](http://docs.connorlittleton.com/)
 
 ## Endpoints
 * /posts	100 posts
