@@ -1,9 +1,14 @@
 import { Router } from 'express'
 
 import { getAlbum, getAlbums } from './albums'
-import { getComment, getComments } from './comments'
+import {
+  createComment,
+  getComment,
+  getComments,
+  updateComment,
+} from './comments'
 import { getPhoto, getPhotos } from './photos'
-import { getPost, getPosts } from './posts'
+import { getPost, getPosts, createPost, updatePost } from './posts'
 import { getTodo, getTodos } from './todos'
 import { getUser, getUsers } from './users'
 
@@ -26,5 +31,11 @@ router.get('/todos/:id', getTodo)
 
 router.get('/users', getUsers)
 router.get('/users/:id', getUser)
+
+router.post('/comments', createComment)
+router.post('/posts', createPost)
+
+router.put('/comments/:id', updateComment)
+router.put('/posts/:id', updatePost)
 
 export { router }

@@ -36,6 +36,10 @@ importers:
         version: 1.9.3
 
   apps/api:
+    dependencies:
+      zod:
+        specifier: ^3.21.4
+        version: 3.21.4
     devDependencies:
       '@faker-js/faker':
         specifier: ^8.0.1
