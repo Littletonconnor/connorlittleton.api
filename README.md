@@ -3,8 +3,16 @@
 ## Overview
 Welcome to connorlittleton.api! A simple jsonplaceholder alternative using my own API, a custom docs site, CICD pipeline, etc.
 
-- Api: [api.connorlittleton.com](http://api.connorlittleton.com/)
-- Docs: [docs.connorlittleton.com](http://docs.connorlittleton.com/)
+## Folder Structure
+
+### Terraform
+This directory contains a Terraform module to deploy the API on an EC2 instance. At one point I had the EC2 instance configured with a docs site and API but I removed it. Checkout my [blog post](https://www.connorlittleton.dev/posts/deploying-an-api) on how I configured it though.
+
+### apps/www
+This is an un-finished nextra site, but demonstrates how you can easily setup documentation around your API.
+
+### API
+This is the meat of the project, this is where the API lives!
 
 ## Endpoints
 * /posts	100 posts
