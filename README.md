@@ -11,7 +11,7 @@ This directory contains a Terraform module to deploy the API on an EC2 instance.
 ### apps/www
 This is an un-finished nextra site, but demonstrates how you can easily setup documentation around your API.
 
-### API
+### apps/api
 This is the meat of the project, this is where the API lives!
 
 ## Endpoints
