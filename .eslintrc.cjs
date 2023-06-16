@@ -11,6 +11,9 @@ const config = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
+  rules: {
+    '@typescript-eslint/no-misused-promises': 'off',
+  },
 }
 
 module.exports = config

@@ -7,7 +7,7 @@ import {
   getComments,
   updateComment,
 } from './comments'
-import { getPhoto, getPhotos } from './photos'
+import { createPhotos, getPhoto, getPhotos, updatePhoto } from './photos'
 import { getPost, getPosts, createPost, updatePost } from './posts'
 import { getTodo, getTodos } from './todos'
 import { getUser, getUsers } from './users'
@@ -34,8 +34,10 @@ router.get('/users/:id', getUser)
 
 router.post('/comments', createComment)
 router.post('/posts', createPost)
+router.post('/photos', createPhotos)
 
 router.put('/comments/:id', updateComment)
 router.put('/posts/:id', updatePost)
+router.put('/photos/:id', updatePhoto)
 
 export { router }
